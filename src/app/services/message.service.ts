@@ -8,6 +8,8 @@ import { UserService, GroupService } from '../services';
 import { IMessage } from '../models';
 
 import { newLineString } from '../pipes/message-to-html.pipe';
+
+const MESSAGE_LIMIT = 30;
  
 @Injectable()
 export class MessageService {
@@ -39,13 +41,13 @@ export class MessageService {
     } as IMessage)
   }
 
-  public async loadPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = 5): Promise<void> {
+  public async loadPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = MESSAGE_LIMIT): Promise<void> {
     const messages = await this.getPreviousMessagesForGroup(groupId, before, limit);
 
     this.addMessagesToGroup(groupId, messages);
   }
 
-  private async getPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = 5): Promise<IMessage[]> {
+  private async getPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = MESSAGE_LIMIT): Promise<IMessage[]> {
     const snapshot = await this.db.collection('messages', ref => ref
       .where('groupId', '==', groupId)
       .orderBy('timestamp', 'desc')
