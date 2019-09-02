@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { MessageService } from '../services/message.service'
 
@@ -9,6 +9,8 @@ import { MessageService } from '../services/message.service'
 })
 export class MessageFormComponent implements OnInit {
   @ViewChild('message', { static: false }) message: ElementRef;
+
+  @Output() messageSent = new EventEmitter();
 
   private id: string;
 
@@ -38,6 +40,8 @@ export class MessageFormComponent implements OnInit {
     this.message.nativeElement.value = '';
 
     this.resize();
+
+    this.messageSent.emit();
   }
 
   public resize() {

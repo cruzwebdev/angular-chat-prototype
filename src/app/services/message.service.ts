@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { sortBy } from 'sort-by-typescript';
@@ -39,16 +39,22 @@ export class MessageService {
     } as IMessage)
   }
 
-  public async getMessagesForGroup(groupId: string, before: Date = new Date(), limit = 30): Promise<IMessage[]> {
+  public async loadPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = 5): Promise<void> {
+    const messages = await this.getPreviousMessagesForGroup(groupId, before, limit);
+
+    this.addMessagesToGroup(groupId, messages);
+  }
+
+  private async getPreviousMessagesForGroup(groupId: string, before: number = Date.now(), limit = 5): Promise<IMessage[]> {
     const snapshot = await this.db.collection('messages', ref => ref
       .where('groupId', '==', groupId)
       .orderBy('timestamp', 'desc')
-      .startAt(before)
-      .limit(limit)     
+      .startAfter(before)
+      .limit(limit)
     ).get().toPromise();
 
-    return await Promise.all(snapshot.docs.map(async doc => {
-      const message = await doc.data();
+    return await Promise.all(snapshot.docs.map(doc => {
+      const message = doc.data();
       
       return {
         id: doc.id,
@@ -70,7 +76,7 @@ export class MessageService {
           this.groupMessages[group.id] = [];
           this.groupMessages$[group.id] = new BehaviorSubject([]);
           
-          this.addMessagesToGroup(group.id, await this.getMessagesForGroup(group.id));
+          this.addMessagesToGroup(group.id, await this.getPreviousMessagesForGroup(group.id));
         }
       });
     });
