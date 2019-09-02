@@ -10,6 +10,8 @@ import { UserService } from './services/user.service';
 import { GroupService } from './services/group.service';
 import { MessageService } from './services/message.service';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faEdit as farEdit, faTimesCircle as farTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { AppComponent } from './app.component';
 import { MessageComponent } from './message/message.component';
 import { MessageListComponent } from './message-list/message-list.component';
@@ -18,6 +20,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
 
 import { FilterByPipe } from './pipes/filter-by.pipe';
 import { MessageToHtmlPipe } from './pipes/message-to-html.pipe';
+import { MessageToInputPipe } from './pipes/message-to-input.pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEwBcOwZ8FIDvIfEjmS0r5jgLnjwSqxLU",
@@ -30,10 +33,14 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule ],
+  imports:      [ BrowserModule, FormsModule, FontAwesomeModule, AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule ],
   exports: [AppRoutingModule],
-  declarations: [ AppComponent, MessageComponent, MessageListComponent, MessageFormComponent, ChatListComponent, FilterByPipe, MessageToHtmlPipe ],
+  declarations: [ AppComponent, MessageComponent, MessageListComponent, MessageFormComponent, ChatListComponent, FilterByPipe, MessageToHtmlPipe, MessageToInputPipe ],
   bootstrap:    [ AppComponent ],
   providers: [MessageService, UserService, GroupService]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(farEdit, farTimesCircle);
+  }
+ }
