@@ -1,0 +1,11 @@
+html,
+body {
+  margin: 0;
+  padding: $spacing;
+  height: 100%;
+  background: $color-black;
+}
+
+* {
+  box-sizing: border-box;
+}

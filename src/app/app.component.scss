@@ -1,0 +1,24 @@
+@import './styles/_variables-and-helpers';
+
+.Chat {
+  display: flex;
+  flex: 1 1 auto;
+  padding: $spacing;
+  height: 100%;
+  background: $color-background;
+  border: 1px solid $color-borders;
+
+  &__list {
+    flex: 0 0 auto;
+    padding: $spacing;
+    width: 200px;
+    border: 1px solid $color-borders;
+  }
+
+  &__messages {
+    flex: 1 1 auto;
+    margin: 0 0 0 $spacing;
+    padding: $spacing;
+    border: 1px solid $color-borders;
+  }
+}

@@ -1,0 +1,15 @@
+<div class="ChatList">
+  <h2 class="ChatList__heading">Groups</h2>
+  <ul class="ChatList__items">
+    <li class="ChatList__item" *ngFor="let chat of groupChats$ | async">
+      <a class="ChatList__link" [ngClass]="{ 'ChatList__link--current': chat.id === id }" [routerLink]="['/chat', chat.id]">{{ chat.name }}</a>
+    </li>
+  </ul>
+
+  <h2 class="ChatList__heading">Users</h2>
+  <ul class="ChatList__items">
+    <li class="ChatList__item" *ngFor="let chat of userChats$ | async ">
+      <a class="ChatList__link" [ngClass]="{ 'ChatList__link--current': chat.id === id }" [routerLink]="['/chat', chat.id]">{{ chat.name }}</a>
+    </li>
+  </ul>
+</div>

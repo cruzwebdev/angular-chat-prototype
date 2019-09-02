@@ -1,0 +1,12 @@
+<div class="Message">
+  <div class="Message__icon">
+    <img *ngIf="user.img" src="{{ user.img }}" [attr.alt]="user.displayName" class="Message__avatar">
+    <div *ngIf="!user.img" class="Message__initials" [ngStyle]="{ 'background-color': '#' + user.colour }">{{ user.initials }}</div>
+  </div>
+  <div class="Message__main">
+    <header class="Message__header">
+      <strong>{{ user.displayName }}</strong>&nbsp;<small class="Message__time">{{ message.timestamp | date: 'HH:mm' }}</small>
+    </header>
+    <div class="Message__body" [innerHTML]="message.text | messageToHtml"></div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.Input {
+  padding: .5em;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid $color-borders;
+
+  color: $color-text;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--textarea {
+    
+  }
+}

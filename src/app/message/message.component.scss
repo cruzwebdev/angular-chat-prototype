@@ -1,0 +1,40 @@
+@import '../styles/_variables-and-helpers';
+
+$message-avatar-size: 2.5em;
+
+.Message {
+  display: flex;
+
+  &__icon {
+    padding: 0 $spacing 0 0;
+  }
+
+  &__initials,
+  &__avatar {
+    width: $message-avatar-size;
+    height: $message-avatar-size;
+    
+    border-radius: 50%;
+  }
+
+  &__initials {
+    line-height: $message-avatar-size;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &__header {
+    margin: 0 0 $spacing / 2;
+    font-size: .9em;
+  }
+
+  &__time {
+    color: $color-grey;
+  }
+
+  &__body {
+    & p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

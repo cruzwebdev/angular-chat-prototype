@@ -1,0 +1,20 @@
+<!-- <div class="mf-wrapper">
+  <div class="form-group message-form">
+    <textarea type="text"
+           class="form-control"
+           placeholder="Press Enter to send message"
+           #message
+           (keyup.enter)="onEnter(message.value);message.value=''"></textarea>
+    <button (click)="onEnter(message.value);message.value=''">Send</button>
+  </div>
+</div> -->
+
+<div class="MessageForm" (window:resize)="resize()">
+  <textarea
+    #message
+    class="MessageForm__input Input"
+    (keyup)="handleKeyup($event)"
+    (input)="resize()" 
+  ></textarea>
+  <button (click)="send()" class="MessageForm__button Button">Send</button>
+</div>

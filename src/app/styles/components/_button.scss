@@ -1,0 +1,6 @@
+.Button {
+  @include button-reset;
+
+  padding: .7em 1em;
+  border: 1px solid $color-borders;
+}
