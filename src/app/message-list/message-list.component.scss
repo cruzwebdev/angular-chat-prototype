@@ -3,6 +3,7 @@
 :host {
   display: flex;
   height: 100%;
+  padding: $spacing;
 }
 
 .MessageList {
@@ -36,7 +37,8 @@
   }
 
   &__form {
-    margin: $spacing 0 0;
+    flex: 1 0 auto;
+    margin: 0;
     justify-self: flex-end;
   }
 }
